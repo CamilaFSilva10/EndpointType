@@ -8,7 +8,7 @@
             return a + b;
         }
 
-        // Sobrecarga de método
+        // Sobrecarga de método: definir métodos com o mesmo nome, mas com diferentes parâmetros.
         public int Somar(int a, int b, int c)
         {
             return a + b + c;
