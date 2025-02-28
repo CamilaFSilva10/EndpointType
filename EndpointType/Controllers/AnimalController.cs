@@ -7,16 +7,12 @@ namespace EndpointType.Controllers
     [ApiController]
     public class AnimalController : ControllerBase
     {
-        [HttpGet("poo")]
-        public IActionResult GetAnimalSound()
+        [HttpGet("poo/{nome}")]
+        public IActionResult GetAnimalSound(string nome)
         {
-            Animal cachorro = new Cachorro("Rex");
+            Animal cachorro = new Cachorro(nome);
             cachorro.FazerSom();
             return Ok($"{cachorro.Nome} fez um som");
-        }
-        public class AnimalNaoEncontradoException : Exception
-        {
-            public AnimalNaoEncontradoException(string mensagem) : base(mensagem) { }
         }
 
         [HttpGet("tratamento-excecao/{nome}")]
@@ -27,8 +23,7 @@ namespace EndpointType.Controllers
                 if (string.IsNullOrEmpty(nome))
                     throw new AnimalNaoEncontradoException("Animal não encontrado.");
 
-                // Simulando a busca do animal
-                if (nome.ToLower() != "Rex")
+                if (nome.ToLower() != "REX")
                     throw new AnimalNaoEncontradoException("O animal com o nome fornecido não foi encontrado.");
 
                 return Ok($"O animal {nome} foi encontrado!");
@@ -38,5 +33,12 @@ namespace EndpointType.Controllers
                 return BadRequest(new { mensagem = ex.Message });
             }
         }
+
+        //Tratamento de erro
+        public class AnimalNaoEncontradoException : Exception
+        {
+            public AnimalNaoEncontradoException(string mensagem) : base(mensagem) { }
+        }
+
     }
 }
